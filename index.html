@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcula orçamento</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+    <div class="container mt-5">
+        <div class="card shadow p-4">
+            <h2 class="mb-4 text-center">Calcula orçamento</h2>
+
+            <!-- Campos principais -->
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label for="altura" class="form-label">Altura</label>
+                    <input type="number" id="altura" class="form-control" placeholder="Digite a altura">
+                </div>
+                <div class="col-md-6">
+                    <label for="largura" class="form-label">Largura</label>
+                    <input type="number" id="largura" class="form-control" placeholder="Digite a largura">
+                </div>
+            </div>
+
+            <!-- Campos opcionais para cor -->
+            <h5 class="text-secondary">Cálculo adicional para cor (opcional)</h5>
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label for="alturaCor" class="form-label">Altura da cor</label>
+                    <input type="number" id="alturaCor" class="form-control" placeholder="Digite a altura da cor">
+                </div>
+                <div class="col-md-6">
+                    <label for="larguraCor" class="form-label">Largura da cor</label>
+                    <input type="number" id="larguraCor" class="form-control" placeholder="Digite a largura da cor">
+                </div>
+            </div>
+
+            <!-- Botões -->
+            <div class="d-flex gap-2 mb-3">
+                <button class="btn btn-primary flex-fill" onclick="calcular()">Calcular</button>
+                <button class="btn btn-secondary flex-fill" onclick="limparCampos()">Limpar</button>
+            </div>
+
+            <!-- Resultado sempre visível -->
+            <div class="alert alert-info text-center" id="resultado">
+                Orçamento: R$ 0,00
+            </div>
+
+            <button id="btnCopiar" class="btn btn-success w-100 mt-2" onclick="copiarValor()">
+                Copiar valor
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let valorCalculado = 0;
+
+        function formatarMoeda(valor) {
+            return valor.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL"
+            });
+        }
+
+        function calcular() {
+            const altura = parseFloat(document.getElementById("altura").value);
+            const largura = parseFloat(document.getElementById("largura").value);
+            const alturaCor = parseFloat(document.getElementById("alturaCor").value);
+            const larguraCor = parseFloat(document.getElementById("larguraCor").value);
+            const resultadoEl = document.getElementById("resultado");
+
+            if (isNaN(altura) || isNaN(largura)) {
+                resultadoEl.classList.replace("alert-info", "alert-danger");
+                resultadoEl.textContent = "Por favor, preencha a altura e largura principais.";
+                valorCalculado = 0;
+                return;
+            }
+
+            let total = (altura * largura * 0.225) + 10;
+
+            if (!isNaN(alturaCor) && !isNaN(larguraCor)) {
+                total += (alturaCor * larguraCor * 0.225) + 10;
+            }
+
+            valorCalculado = total;
+            resultadoEl.classList.replace("alert-danger", "alert-info");
+            resultadoEl.textContent = `Orçamento: ${formatarMoeda(total)}`;
+        }
+
+        function copiarValor() {
+            navigator.clipboard.writeText(formatarMoeda(valorCalculado)).then(() => {
+                const btnCopiar = document.getElementById("btnCopiar");
+                btnCopiar.textContent = "Copiado!";
+                setTimeout(() => {
+                    btnCopiar.textContent = "Copiar valor";
+                }, 1500);
+            });
+        }
+
+        function limparCampos() {
+            document.getElementById("altura").value = "";
+            document.getElementById("largura").value = "";
+            document.getElementById("alturaCor").value = "";
+            document.getElementById("larguraCor").value = "";
+            document.getElementById("resultado").classList.replace("alert-danger", "alert-info");
+            document.getElementById("resultado").textContent = "Orçamento: R$ 0,00";
+            valorCalculado = 0;
+        }
+    </script>
+
+</body>
+
+</html>
