@@ -94,7 +94,8 @@
         }
 
         function copiarValor() {
-            navigator.clipboard.writeText(formatarMoeda(valorCalculado)).then(() => {
+            const texto = `*ORÇAMENTO - *: ${formatarMoeda(valorCalculado)}`;
+            navigator.clipboard.writeText(texto).then(() => {
                 const btnCopiar = document.getElementById("btnCopiar");
                 btnCopiar.textContent = "Copiado!";
                 setTimeout(() => {
@@ -117,4 +118,5 @@
 </body>
 
 </html>
+
 
