@@ -40,12 +40,10 @@ function copiarValor() {
 
         const btnCopiar = document.getElementById("btnCopiar");
 
-        // Troca para ícone de sucesso
         btnCopiar.innerHTML = `<i class="fa-solid fa-check"></i>`;
-        btnCopiar.style.color = "#28a745"; // verde sucesso
+        btnCopiar.style.color = "#28a745";
 
         setTimeout(() => {
-            // Volta para ícone de copiar
             btnCopiar.innerHTML = `<i class="fa-solid fa-copy"></i>`;
             btnCopiar.style.color = "#ffffff";
         }, 1500);
@@ -56,32 +54,35 @@ function copiarValor() {
 
 function limparCampos() {
 
-    // Limpa todos os inputs (number, text, file)
     document.querySelectorAll("input").forEach(input => {
         input.value = "";
     });
 
-    // 🔥 Reset do select de modelo
     const selectModelo = document.querySelector("select");
     if (selectModelo) {
         selectModelo.selectedIndex = 0;
     }
 
-    // Limpa resultado
     document.getElementById("resultado").textContent = "R$ 0,00";
 
-    // Limpa lista de cores detectadas
     const listaCores = document.getElementById("listaCores");
+
     if (listaCores) {
-        listaCores.innerHTML = "";
+
+        // 🔥 ANIMAÇÃO DE SAÍDA
+        listaCores.classList.remove("mostrar");
+        listaCores.classList.add("saindo");
+
+        setTimeout(() => {
+            listaCores.innerHTML = "";
+            listaCores.classList.remove("saindo");
+        }, 300);
     }
 
-    // Remove seleção visual das cores
     document.querySelectorAll(".cor-item").forEach(item => {
         item.classList.remove("cor-selecionada");
     });
 
-    // Limpa canvas
     const canvas = document.getElementById("canvasImagem");
     if (canvas) {
         const ctx = canvas.getContext("2d");
@@ -99,16 +100,13 @@ function selecionarModelo(select) {
     const largura = parseFloat(medidas[0]);
     const altura = parseFloat(medidas[1]);
 
-    // Preenche campos principais
     document.getElementById("largura").value = largura;
     document.getElementById("altura").value = altura;
 
-    // Preenche também área total real
     document.getElementById("larguraReal").value = largura;
     document.getElementById("alturaReal").value = altura;
 }
 
-// Sincroniza manualmente se alterar campos principais
 document.getElementById("largura").addEventListener("input", function () {
     document.getElementById("larguraReal").value = this.value;
 });
@@ -195,7 +193,6 @@ function analisarImagem() {
         document.getElementById("larguraCor").value = larguraCm.toFixed(2);
         document.getElementById("alturaCor").value = alturaCm.toFixed(2);
 
-        // 🔥 AGORA sim exibe o modal
         const modal = new bootstrap.Modal(document.getElementById('modalSucesso'));
         modal.show();
 
@@ -279,26 +276,26 @@ function analisarCores(event) {
             const hex = rgbToHex(cor.r, cor.g, cor.b);
 
             container.innerHTML += `
-    <div class="cor-item"
-         onclick="copiarCor('${hex}', this)">
-
-        <div class="cor-preview" style="background:${hex}"></div>
-
-        <div>
-            <div class="hex-text">${hex}</div>
-            <div style="font-size:0.75rem;color:#aaa">
-                ${cor.porcentagem.toFixed(2)}% da arte
-            </div>
-        </div>
-
-        <div class="copy-icon">
-            <i class="fa-solid fa-copy"></i>
-        </div>
-
-    </div>
-`;
+                <div class="cor-item"
+                     onclick="copiarCor('${hex}', this)">
+                    <div class="cor-preview" style="background:${hex}"></div>
+                    <div>
+                        <div class="hex-text">${hex}</div>
+                        <div style="font-size:0.75rem;color:#aaa">
+                            ${cor.porcentagem.toFixed(2)}% da arte
+                        </div>
+                    </div>
+                    <div class="copy-icon">
+                        <i class="fa-solid fa-copy"></i>
+                    </div>
+                </div>
+            `;
         });
 
+        // 🔥 ANIMAÇÃO DE ENTRADA
+        container.classList.remove("mostrar");
+        void container.offsetWidth;
+        container.classList.add("mostrar");
     };
 
     img.src = URL.createObjectURL(file);
@@ -315,11 +312,9 @@ function copiarCor(hex, elemento) {
 
     navigator.clipboard.writeText(hex).then(() => {
 
-        // 🔥 Preenche automaticamente o input
         const inputCor = document.getElementById("corHex");
         inputCor.value = hex;
 
-        // Feedback visual no input
         inputCor.style.borderColor = "#28a745";
         inputCor.style.boxShadow = "0 0 6px rgba(40,167,69,0.6)";
 
@@ -328,7 +323,6 @@ function copiarCor(hex, elemento) {
             inputCor.style.boxShadow = "none";
         }, 1200);
 
-        // Troca ícone temporariamente
         const icon = elemento.querySelector(".copy-icon");
         icon.innerHTML = `<i class="fa-solid fa-check"></i>`;
         icon.style.color = "#28a745";
@@ -338,12 +332,10 @@ function copiarCor(hex, elemento) {
             icon.style.color = "#ffffff";
         }, 1200);
 
-        // Remove seleção anterior
         document.querySelectorAll(".cor-item").forEach(item => {
             item.classList.remove("cor-selecionada");
         });
 
-        // Destaca a selecionada
         elemento.classList.add("cor-selecionada");
 
     });

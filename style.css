@@ -250,6 +250,24 @@ hr {
     animation: bounceSucesso 0.6s ease;
 }
 
+/* ===== ANIMAÇÃO CONTAINER CORES ===== */
+
+.cores-animado {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.35s ease;
+}
+
+.cores-animado.mostrar {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.cores-animado.saindo {
+    opacity: 0;
+    transform: translateY(15px);
+}
+
 @keyframes bounceSucesso {
     0% {
         transform: scale(0.5);
