@@ -6,114 +6,216 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calcula orçamento</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="bg-light" style="margin: 0 200px;">
+<body>
 
-    <div class="container mt-5">
-        <div class="card shadow p-4">
-            <h2 class="mb-4">CALCULA ORÇAMENTO</h2>
-            <hr>
+    <div class="main-content">
 
-            <!-- Campos principais -->
-            <div class="row g-3 mb-3">
-                <div class="col-md-6">
-                    <label for="altura" class="form-label">Altura</label>
-                    <input type="number" id="altura" class="form-control" placeholder="Digite a altura">
+        <div class="container-fluid">
+            <div class="row">
+
+                <!-- LADO ESQUERDO -->
+                <div class="col-lg-3 left-panel">
+
+                    <h4 class="fw-bold mb-4">Selecionar Modelo de Caixa</h4>
+
+                    <div class="mb-3">
+                        <label class="form-label">Modelo e Medida</label>
+
+                        <select class="form-select bg-dark text-white border-secondary"
+                            onchange="selecionarModelo(this)">
+
+                            <option value="">Selecione um modelo</option>
+
+                            <optgroup label="Pizza">
+                                <option value="27.7x27.7">Pizza N20</option>
+                                <option value="35.7x35.7">Pizza N26</option>
+                                <option value="40.7x40.7">Pizza N30</option>
+                                <option value="45.7x45.7">Pizza N35</option>
+                                <option value="50.7x50.7">Pizza N40</option>
+                                <option value="57.7x57.7">Pizza N45</option>
+                            </optgroup>
+
+                            <optgroup label="Pizza Separada">
+                                <option value="36x36">Pizza Separada N26</option>
+                                <option value="40x40">Pizza Separada N30</option>
+                                <option value="46x46">Pizza Separada N35</option>
+                                <option value="51x51">Pizza Separada N40</option>
+                            </optgroup>
+
+                            <optgroup label="Smart">
+                                <option value="40x40">Smart 30</option>
+                                <option value="45x45">Smart 35</option>
+                                <option value="51x51">Smart 40</option>
+                            </optgroup>
+
+                            <optgroup label="Quadrada">
+                                <option value="45.7x45.7">Quadrada Pizza 35</option>
+                                <option value="29x22">Quadrada P</option>
+                                <option value="36x25">Quadrada M</option>
+                                <option value="43x25">Quadrada G</option>
+                            </optgroup>
+
+                            <optgroup label="Stuffed">
+                                <option value="35x23.5">Stuffed M</option>
+                                <option value="43.5x33">Stuffed G</option>
+                            </optgroup>
+
+                            <optgroup label="Calzone">
+                                <option value="39x23">Calzone P</option>
+                                <option value="47.5x27.5">Calzone G</option>
+                            </optgroup>
+
+                            <optgroup label="Especial">
+                                <option value="81x47">Pizza 70cm</option>
+                            </optgroup>
+
+                            <optgroup label="Retangular">
+                                <option value="37.5x20.5">Retangular Mini</option>
+                                <option value="39.8x23.9">Retangular PP</option>
+                                <option value="40x31">Retangular P</option>
+                                <option value="50.5x35.5">Retangular M</option>
+                                <option value="61.5x45.5">Retangular G</option>
+                            </optgroup>
+
+                            <optgroup label="Combo">
+                                <option value="41.5x34.5">Combo M</option>
+                                <option value="39.7x37.4">Combo G</option>
+                                <option value="57x51.6">Combo GG</option>
+                            </optgroup>
+
+                        </select>
+                    </div>
+
                 </div>
-                <div class="col-md-6">
-                    <label for="largura" class="form-label">Largura</label>
-                    <input type="number" id="largura" class="form-control" placeholder="Digite a largura">
+
+                <!-- LADO DIREITO -->
+                <div class="col-lg-9 right-panel">
+
+                    <div class="container-fluid px-4 py-1">
+
+                        <div class="text-center mb-1">
+                            <h3 class="fw-bold">CALCULA ORÇAMENTO</h3>
+                        </div>
+
+                        <!-- Medidas principais -->
+                        <div class="row g-3 mb-4">
+                            <div class="text-secondary small">
+                                Medidas da área de impressão
+                            </div>
+                            <div class="col-md-6">
+                                <label for="altura" class="form-label">Altura</label>
+                                <input type="number" id="altura" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="largura" class="form-label">Largura</label>
+                                <input type="number" id="largura" class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Cor adicional -->
+                        <div class="mb-2 text-secondary small">
+                            Cálculo adicional para cor (opcional)
+                        </div>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <input type="number" id="alturaCor" class="form-control" placeholder="Altura da cor">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="number" id="larguraCor" class="form-control" placeholder="Largura da cor">
+                            </div>
+                        </div>
+
+                        <!-- Botões -->
+                        <div class="d-flex gap-3 mb-5">
+                            <button class="btn btn-primary flex-fill py-2" onclick="calcular()">
+                                Calcular
+                            </button>
+                            <button class="btn btn-secondary flex-fill py-2" onclick="limparCampos()">
+                                Limpar
+                            </button>
+                        </div>
+
+                        <!-- Upload e análise -->
+                        <label class="form-label">Enviar arte</label>
+                        <input type="file" id="inputImagem" class="form-control mb-4" accept="image/*">
+
+                        <h6>Cores detectadas</h6>
+                        <div id="listaCores" class="cores-container mb-4"></div>
+
+                        <canvas id="canvasImagem" style="display:none;"></canvas>
+
+                        <label class="form-label">Área total real (cm)</label>
+                        <div class="d-flex gap-2 mb-3">
+                            <input type="number" id="larguraReal" class="form-control" placeholder="Largura total (cm)">
+                            <input type="number" id="alturaReal" class="form-control" placeholder="Altura total (cm)">
+                        </div>
+
+                        <label class="form-label">Cor a detectar (HEX)</label>
+                        <input type="text" id="corHex" class="form-control mb-3" placeholder="#FF0000">
+
+                        <button class="btn btn-primary w-100 mb-5" onclick="analisarImagem()">
+                            Analisar área da cor
+                        </button>
+
+                        <!-- Resultado -->
+                        <div class="resultado-container">
+
+                            <div class="resultado-text">
+                                <span>Orçamento:</span>
+                                <span id="resultado">R$ 0,00</span>
+                            </div>
+
+                            <button id="btnCopiar" class="btn-copiar" onclick="copiarValor()">
+                                <i class="fa-solid fa-copy"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
                 </div>
-            </div>
 
-            <!-- Campos opcionais para cor -->
-            <h5 class="text-secondary">Cálculo adicional para cor (opcional)</h5>
-            <div class="row g-3 mb-3">
-                <div class="col-md-6">
-                    <label for="alturaCor" class="form-label">Altura da cor</label>
-                    <input type="number" id="alturaCor" class="form-control" placeholder="Digite a altura da cor">
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODAL SUCESSO -->
+    <div class="modal fade modal-animado" id="modalSucesso" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-light border-secondary modal-sucesso-custom">
+
+                <div class="modal-body text-center py-5">
+
+                    <div class="icone-sucesso mb-4">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+
+                    <h5 class="fw-bold">Análise concluída com sucesso!</h5>
+                    <p class="text-secondary small mt-2">
+                        A área da cor foi calculada corretamente.
+                    </p>
+
                 </div>
-                <div class="col-md-6">
-                    <label for="larguraCor" class="form-label">Largura da cor</label>
-                    <input type="number" id="larguraCor" class="form-control" placeholder="Digite a largura da cor">
-                </div>
-            </div>
 
-            <!-- Botões -->
-            <div class="d-flex gap-2 mb-3">
-                <button class="btn btn-primary flex-fill" onclick="calcular()">Calcular</button>
-                <button class="btn btn-secondary flex-fill" onclick="limparCampos()">Limpar</button>
             </div>
-            <hr>
-
-            <!-- Resultado sempre visível -->
-            <div class="alert alert-info mt-4 text-center" id="resultado">
-                Orçamento: R$ 0,00
-            </div>
-
-            <button id="btnCopiar" class="btn btn-success w-100 mt-2" onclick="copiarValor()">
-                Copiar valor
-            </button>
         </div>
     </div>
 
-    <script>
-        let valorCalculado = 0;
+    <footer class="text-light py-3 footer-fixo">
+        <div class="container text-center small">
+            <span class="text-light fw-semibold">71dev</span> © 2026 —
+            Todos os direitos reservados
+        </div>
+    </footer>
 
-        function formatarMoeda(valor) {
-            return valor.toLocaleString("pt-BR", {
-                style: "currency",
-                currency: "BRL"
-            });
-        }
-
-        function calcular() {
-            const altura = parseFloat(document.getElementById("altura").value);
-            const largura = parseFloat(document.getElementById("largura").value);
-            const alturaCor = parseFloat(document.getElementById("alturaCor").value);
-            const larguraCor = parseFloat(document.getElementById("larguraCor").value);
-            const resultadoEl = document.getElementById("resultado");
-
-            if (isNaN(altura) || isNaN(largura)) {
-                resultadoEl.classList.replace("alert-info", "alert-danger");
-                resultadoEl.textContent = "Por favor, preencha a altura e largura principais.";
-                valorCalculado = 0;
-                return;
-            }
-
-            let total = (altura * largura * 0.225) + 32;
-
-            if (!isNaN(alturaCor) && !isNaN(larguraCor)) {
-                total += (alturaCor * larguraCor * 0.225) + 32;
-            }
-
-            valorCalculado = total;
-            resultadoEl.classList.replace("alert-danger", "alert-info");
-            resultadoEl.textContent = `Orçamento: ${formatarMoeda(total)}`;
-        }
-
-        function copiarValor() {
-            const texto = `*ORÇAMENTO - *: ${formatarMoeda(valorCalculado)}`;
-            navigator.clipboard.writeText(texto).then(() => {
-                const btnCopiar = document.getElementById("btnCopiar");
-                btnCopiar.textContent = "Copiado!";
-                setTimeout(() => {
-                    btnCopiar.textContent = "Copiar valor";
-                }, 1500);
-            });
-        }
-
-        function limparCampos() {
-            document.getElementById("altura").value = "";
-            document.getElementById("largura").value = "";
-            document.getElementById("alturaCor").value = "";
-            document.getElementById("larguraCor").value = "";
-            document.getElementById("resultado").classList.replace("alert-danger", "alert-info");
-            document.getElementById("resultado").textContent = "Orçamento: R$ 0,00";
-            valorCalculado = 0;
-        }
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
 
 </body>
 

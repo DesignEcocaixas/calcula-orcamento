@@ -1,0 +1,274 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background: #1c1c1c;
+    color: #ffffff !important;
+
+    /* Sticky footer layout */
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+/* Conteúdo principal ocupa espaço disponível */
+.main-content {
+    flex: 1;
+}
+
+/* Footer normal (não fixo travado) */
+.footer-fixo {
+    background: #1c1c1c !important;
+    /* mesma cor do body */
+    border-top: none !important;
+}
+
+/* Força todos os textos para branco */
+body,
+p,
+span,
+small,
+div,
+label,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #ffffff !important;
+}
+
+.left-panel {
+    background: #252525;
+    border-right: 1px solid #3a3a3a;
+    padding: 50px;
+    min-height: 100%;
+}
+
+.right-panel {
+    padding: 50px;
+    position: relative;
+    background: #1f1f1f;
+    overflow: hidden;
+}
+
+/* Camada de granulado */
+.right-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 4px 4px;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+.card-dark {
+    background: #2b2b2b;
+    border: 1px solid #3a3a3a;
+    border-radius: 12px;
+    color: #fff;
+}
+
+.form-control {
+    background-color: #3a3a3a;
+    border: 1px solid #555;
+    color: #fff !important;
+}
+
+.form-control::placeholder {
+    color: #ffffff !important;
+    opacity: 0.6;
+}
+
+.form-control:focus {
+    background-color: #444;
+    color: #fff;
+    border-color: #777;
+    box-shadow: none;
+}
+
+.form-label {
+    color: #ffffff !important;
+    font-weight: 500;
+}
+
+.btn-primary {
+    background: #444;
+    border: none;
+    color: #fff;
+}
+
+.btn-secondary {
+    background: #333;
+    border: 1px solid #555;
+    color: #fff;
+}
+
+.btn-success {
+    background: #3f3f3f;
+    border: 1px solid #666;
+    color: #fff;
+}
+
+.resultado-box {
+    background: #3a3a3a;
+    border: 1px solid #555;
+    border-radius: 10px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding: 15px;
+    color: #ffffff !important;
+}
+
+hr {
+    border-color: #444;
+}
+
+.resultado-container {
+    background: #3a3a3a;
+    border: 1px solid #555;
+    border-radius: 10px;
+    padding: 15px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.resultado-text {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.btn-copiar {
+    background: #2b2b2b;
+    border: 1px solid #666;
+    color: #ffffff;
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.2s ease;
+}
+
+.btn-copiar:hover {
+    background: #444;
+    border-color: #888;
+}
+
+.cores-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.cor-item {
+    background: #2b2b2b;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+}
+
+.cor-preview {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: 1px solid #555;
+}
+
+.cor-item {
+    background: #2b2b2b;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.cor-item:hover {
+    background: #333;
+}
+
+.copy-icon {
+    font-size: 0.9rem;
+    color: #ffffff;
+    transition: 0.2s ease;
+}
+
+.cor-selecionada {
+    border: 1px solid #28a745 !important;
+    background: #2f3f2f !important;
+}
+
+/* ===== FUNDO COM BLUR ===== */
+.modal-backdrop.show {
+    backdrop-filter: blur(6px);
+    background: rgba(0, 0, 0, 0.7);
+}
+
+/* ===== ANIMAÇÃO DO MODAL ===== */
+.modal-animado .modal-content {
+    transform: scale(0.8);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.modal-animado.show .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* ===== ESTILO DO MODAL ===== */
+.modal-sucesso-custom {
+    border-radius: 16px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+}
+
+/* ===== ÍCONE ANIMADO ===== */
+.icone-sucesso i {
+    font-size: 70px;
+    color: #28a745;
+    animation: bounceSucesso 0.6s ease;
+}
+
+@keyframes bounceSucesso {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    60% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 992px) {
+    .left-panel {
+        border-right: none;
+        border-bottom: 1px solid #3a3a3a;
+    }
+}
