@@ -341,3 +341,109 @@ function copiarCor(hex, elemento) {
     });
 
 }
+
+const modelosCaixas = [
+    {
+        categoria: "Pizza",
+        itens: [
+            { nome: "Pizza N20", medida: "27.7x27.7" },
+            { nome: "Pizza N26", medida: "35.7x35.7" },
+            { nome: "Pizza N30", medida: "40.7x40.7" },
+            { nome: "Pizza N35", medida: "45.7x45.7" },
+            { nome: "Pizza N40", medida: "50.7x50.7" },
+            { nome: "Pizza N45", medida: "57.7x57.7" }
+        ]
+    },
+    {
+        categoria: "Pizza Separada",
+        itens: [
+            { nome: "Pizza Separada N26", medida: "36x36" },
+            { nome: "Pizza Separada N30", medida: "40x40" },
+            { nome: "Pizza Separada N35", medida: "46x46" },
+            { nome: "Pizza Separada N40", medida: "51x51" }
+        ]
+    },
+    {
+        categoria: "Smart",
+        itens: [
+            { nome: "Smart 30", medida: "40x40" },
+            { nome: "Smart 35", medida: "45x45" },
+            { nome: "Smart 40", medida: "51x51" }
+        ]
+    },
+    {
+        categoria: "Quadrada",
+        itens: [
+            { nome: "Quadrada Pizza 35", medida: "45.7x45.7" },
+            { nome: "Quadrada P", medida: "29x22" },
+            { nome: "Quadrada M", medida: "36x25" },
+            { nome: "Quadrada G", medida: "43x25" }
+        ]
+    },
+    {
+        categoria: "Stuffed",
+        itens: [
+            { nome: "Stuffed M", medida: "35x23.5" },
+            { nome: "Stuffed G", medida: "43.5x33" }
+        ]
+    },
+    {
+        categoria: "Calzone",
+        itens: [
+            { nome: "Calzone P", medida: "39x23" },
+            { nome: "Calzone G", medida: "47.5x27.5" }
+        ]
+    },
+    {
+        categoria: "Especial",
+        itens: [
+            { nome: "Pizza 70cm", medida: "81x47" }
+        ]
+    },
+    {
+        categoria: "Retangular",
+        itens: [
+            { nome: "Retangular Mini", medida: "37.5x20.5" },
+            { nome: "Retangular PP", medida: "39.8x23.9" },
+            { nome: "Retangular P", medida: "40x31" },
+            { nome: "Retangular M", medida: "50.5x35.5" },
+            { nome: "Retangular G", medida: "61.5x45.5" }
+        ]
+    },
+    {
+        categoria: "Combo",
+        itens: [
+            { nome: "Combo M", medida: "41.5x34.5" },
+            { nome: "Combo G", medida: "39.7x37.4" },
+            { nome: "Combo GG", medida: "57x51.6" }
+        ]
+    }
+];
+
+function carregarSelectModelos() {
+
+    const select = document.getElementById("selectModelo");
+
+    // Opção padrão
+    select.innerHTML = `<option value="">Selecione um modelo</option>`;
+
+    modelosCaixas.forEach(grupo => {
+
+        const optgroup = document.createElement("optgroup");
+        optgroup.label = grupo.categoria;
+
+        grupo.itens.forEach(item => {
+            const option = document.createElement("option");
+            option.value = item.medida;
+            option.textContent = item.nome;
+            optgroup.appendChild(option);
+        });
+
+        select.appendChild(optgroup);
+    });
+
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    carregarSelectModelos();
+});
