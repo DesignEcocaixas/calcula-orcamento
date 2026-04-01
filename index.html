@@ -80,6 +80,20 @@
                             </button>
                         </div>
 
+                        <!-- Resultado -->
+                        <div class="resultado-container">
+
+                            <div class="resultado-text">
+                                <span>Orçamento:</span>
+                                <span id="resultado">R$ 0,00</span>
+                            </div>
+
+                            <button id="btnCopiar" class="btn-copiar" onclick="copiarValor()">
+                                <i class="fa-solid fa-copy"></i>
+                            </button>
+
+                        </div>
+
                         <!-- Upload e análise -->
                         <label class="form-label">Enviar arte</label>
                         <input type="file" id="inputImagem" class="form-control mb-4" accept="image/*">
@@ -101,20 +115,6 @@
                         <button class="btn btn-primary w-100 mb-5" onclick="analisarImagem()">
                             Analisar área da cor
                         </button>
-
-                        <!-- Resultado -->
-                        <div class="resultado-container">
-
-                            <div class="resultado-text">
-                                <span>Orçamento:</span>
-                                <span id="resultado">R$ 0,00</span>
-                            </div>
-
-                            <button id="btnCopiar" class="btn-copiar" onclick="copiarValor()">
-                                <i class="fa-solid fa-copy"></i>
-                            </button>
-
-                        </div>
 
                     </div>
 
